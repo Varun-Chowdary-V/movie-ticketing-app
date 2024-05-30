@@ -1,5 +1,6 @@
 .font14 {
     font-size: 14px;
+    color: #000;
 }
 .font16 {
     font-size: 16px;
@@ -21,7 +22,8 @@
 .movie {
     margin: -10px -5px 10px -5px;
     height: 70px;
-    background: hsla(216, 81%, 53%, 0.65);   
+    color: #000;  
+    position: sticky;
 }
 .movieDetails {
     font-size: 15px;
@@ -32,29 +34,64 @@
     padding-top: 10px;
     margin-top: -3px;
 }
-.seat {
-    padding-right: 5px;
+.seatsRow {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+.seats {
+    padding: 1vh;
+}
+.seatLabel {
+    color: #000;
+    padding: 1vh;
+    margin-top: 2vh;
+    user-select: none;
 }
 
 .legend {
     font-size: 14px;
-}
-.legend > .padding-left {
-    padding-left: 15px;
+    display: flex;
+    justify-content: end;
+    margin-right: 5%;
+    position: sticky;
+    color: #000;
+    align-items: center;
 }
 .screen {
-    background: hsla(216, 72%, 50%, 0.65);
+    background: hsla(216, 81%, 48%, 0.65);
     height: 3px;
+    width:70vh;
     border-radius: 15px;
-    margin: -5px 50px 10px;
-    box-shadow: 0px 3px 6px #fff;
+    margin: 20px 50px 10px;
+    box-shadow: 0px 3px 6px ;
+    margin-left: 66vh;
+    
 }
 .reservedSeat {
-    color: #ce4844;
+    background:rgb(175, 173, 173);
+    color: white;
+    text-align: center;
+    align-content: center;
 }
 .selectedSeat {
-    color: #5cb85c;
+    background:green;
+    color: white;
+    text-align: center;
+    align-content: center;
 }
 .freeSeat {
-    color: #fff;
+    border-color:green;
+    color: green;
+    text-align: center;
+    align-content: center;
 }
+.seat {
+    height: 25px;
+    user-select: none;
+    width: 25px;
+    border-width: 2px;
+    border-style: solid;
+}
+
+
