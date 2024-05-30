@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { UserServiceService } from '../../services/user-service.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -12,7 +13,7 @@ export class LoginComponent {
   @Input() password : string = '' ;
   data : any = {};
 
-  constructor(private service:UserServiceService) {
+  constructor(private service:UserServiceService, private router:Router) {
 
   }
 
@@ -32,13 +33,17 @@ export class LoginComponent {
           });
           if(this.data.length===0){
             alert("Invalid email or password");
-            console.log(this.data);
+            this.email='';
+            this.password='';
           }
           else{
             alert("Login Successful");
             console.log(this.data);
+            this.email='';
+            this.password='';
+            this.service.setLoginState(true);
+            this.router.navigate(['/'])
           }
-          
         },
         error: error => {
           console.log("error",error);

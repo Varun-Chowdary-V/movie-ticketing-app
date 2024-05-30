@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { MovieServiceService } from '../../services/movie-service.service';
+import { Router } from '@angular/router';
+import { UserServiceService } from '../../services/user-service.service';
 
 interface Movie {
   id:number,
@@ -30,17 +32,18 @@ export class HomeComponent {
   selectedTime: string = ''; 
   today: string = '';
   defaultTimes: string[] = ['10:00 AM', '01:00 PM', '04:00 PM', '07:00 PM', '10:00 PM'];
- 
+  movieState : any = { };
 
-  constructor(private service:MovieServiceService) {
+  constructor(private service:MovieServiceService, private router:Router, private userService: UserServiceService) {
     
   }
-
-
 
   ngOnInit() : void {
     this.fetchData();
     this.today = this.getTodayDate();
+    this.userService.loginState$.subscribe(state => {
+      this.isLoggedIn = state;
+    })
   }
 
   fetchData() : void {
@@ -65,11 +68,11 @@ export class HomeComponent {
   }
 
   login () {
-
+    this.router.navigate(['/login'])
   }
 
   logout () {
-
+    this.userService.setLoginState(false);
   }
 
   filterMovies () {
@@ -88,7 +91,19 @@ export class HomeComponent {
     if(this.selectedDate == '' || this.selectedTime == '' ) {
       alert("Select time and date");
     }
-
+    this.movieState = {
+      movie:this.selectedMovie,
+      date:this.selectedDate,
+      time:this.selectedTime
+    }
+    this.service.setMovieState(this.movieState);
+    if(this.isLoggedIn){
+      this.router.navigate(['/seat']);
+    } else {
+      alert("Login to continue");
+      this.router.navigate(['/login']);
+    }
+    
   }
 
   closeModal () {

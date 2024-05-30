@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { UserServiceService } from '../../services/user-service.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -19,7 +20,7 @@ export class RegisterComponent {
   lastname: any;
   emailAddress: any;
 
-  constructor(private service:UserServiceService) {
+  constructor(private service:UserServiceService, private router: Router) {
     console.log("Constructor")
   }
 
@@ -58,6 +59,15 @@ export class RegisterComponent {
           localStorage.setItem('lastname', this.lastname);
           localStorage.setItem('email', this.emailAddress);
           alert('Registration Successful');
+          this.firstName = ''; 
+          this.lastName = '';
+          this.email = '';
+          this.dateofbirth = '';
+          this.phone = '';
+          this.gender = '';
+          this.password = '';
+          this.router.navigate(['/login']);        
+
         },
         error: error => {
           console.log("error",error);
