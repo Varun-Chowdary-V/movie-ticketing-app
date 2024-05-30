@@ -33,7 +33,7 @@ export class SeatComponent {
     return '';
   }
 
-  //uncheck seat 
+  //uncheck all seats 
   clearSelected () : void {
     this.selected = [];
   }

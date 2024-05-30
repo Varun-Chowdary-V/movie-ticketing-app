@@ -48,7 +48,7 @@ export class RegisterComponent {
         Password: this.password
       }
       console.log("Data in submit", this.data);
-      this.service.post('Users',this.data).subscribe({
+      this.service.post(this.data).subscribe({
         next: (result: any) => {
           console.log("response data ==> ", result);
           this.firstname = result.firstName;

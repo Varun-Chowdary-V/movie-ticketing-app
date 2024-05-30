@@ -24,7 +24,7 @@ export class LoginComponent {
     if(this.email === ''||this.password === '') {
       alert("Invalid email or password");
     } else {
-      this.service.getMethod('Users').subscribe({
+      this.service.getMethod().subscribe({
         next: (result: any) => {
           console.log("response data ==> ", result);
           this.data=result.some((element: { email: string; password: string; } )  => {

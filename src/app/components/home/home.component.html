@@ -1,0 +1,47 @@
+<div class="container">
+    <header class="header">
+      <div class="search-bar">
+        <input type="text" placeholder="Search movies..." (change)="filterMovies()" [(ngModel)]="searchQuery">
+      </div>
+      <div class="auth-button">
+        <button (click)="isLoggedIn ? logout() : login()">
+          {{ isLoggedIn ? 'Logout' : 'Login' }}
+        </button>
+      </div>
+    </header>
+  
+    <main class="main-content">
+      <aside class="filters">
+        <h3>Filters</h3>
+        <div class="filter">
+          <label for="language">Language</label>
+          <select id="language" [(ngModel)]="selectedLanguage" (change)="filterMovies()">
+            <option value="">All</option>
+            <option value="English">English</option>
+            <option value="Telugu">Telugu</option>
+            <option value="Hindi">Hindi</option>
+            <option value="Tamil">Tamil</option>
+          </select>
+        </div>
+  
+        <div class="filter">
+          <label for="location">Location</label>
+          <select id="location" [(ngModel)]="selectedLocation" (change)="filterMovies()">
+            <option value="">All</option>
+            <option value="Hyderabad">Hyderabad</option>
+            <option value="Bangalore">Bangalore</option>
+            <option value="Mumbai">Mumbai</option>
+            <option value="Chennai">Chennai</option>
+          </select>
+        </div>
+      </aside>
+  
+      <section class="movie-list">
+        <div class="movie-card" *ngFor="let movie of filteredMovies" (click)="movieClicked()">
+          <img [src]="movie.poster" alt="{{ movie.title }} poster">
+          <h4>{{ movie.title }}</h4>
+          <p>{{ movie.description | slice:0:100 }}...</p>
+        </div>
+      </section>
+    </main>
+  </div>
