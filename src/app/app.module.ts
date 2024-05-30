@@ -11,6 +11,7 @@ import { RegisterComponent } from './components/register/register.component';
 
 import { provideHttpClient,withInterceptorsFromDi} from '@angular/common/http';
 import { HomeComponent } from './components/home/home.component';
+import { ScheduleMovieComponent } from './components/schedule-movie/schedule-movie.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { HomeComponent } from './components/home/home.component';
     SeatComponent,
     LoginComponent,
     RegisterComponent,
-    HomeComponent
+    HomeComponent,
+    ScheduleMovieComponent
   ],
   imports: [
     BrowserModule,

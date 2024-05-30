@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" *ngIf="!selectedMovie">
     <header class="header">
       <div class="search-bar">
         <input type="text" placeholder="Search movies..." (change)="filterMovies()" [(ngModel)]="searchQuery">
@@ -10,7 +10,7 @@
       </div>
     </header>
   
-    <main class="main-content">
+    <main class="main-content" *ngIf="!selectedMovie">
       <aside class="filters">
         <h3>Filters</h3>
         <div class="filter">
@@ -37,11 +37,31 @@
       </aside>
   
       <section class="movie-list">
-        <div class="movie-card" *ngFor="let movie of filteredMovies" (click)="movieClicked()">
+        <div class="movie-card" *ngFor="let movie of filteredMovies" (click)="movieClicked(movie)">
           <img [src]="movie.poster" alt="{{ movie.title }} poster">
           <h4>{{ movie.title }}</h4>
           <p>{{ movie.description | slice:0:100 }}...</p>
         </div>
       </section>
     </main>
-  </div>
+
+</div>
+<div class="modal" *ngIf="selectedMovie">
+    <div class="modal-content">
+        <h2>{{ selectedMovie.title }}</h2>
+        <p>{{ selectedMovie.description }}</p>
+        
+        <label for="date">Select Date:</label>
+        <input type="date" id="date" [(ngModel)]="selectedDate" [min]="today">
+        
+        <label for="time">Select Time:</label>
+        <select id="time" [(ngModel)]="selectedTime">
+        <option *ngFor="let time of defaultTimes" [value]="time">{{ time }}</option>
+        </select>
+        <div class="btn">
+            <button (click)="bookTicket()">Book Tickets</button>
+            <button (click)="closeModal()">Cancel</button>
+        </div>
+    </div>
+</div>
+      

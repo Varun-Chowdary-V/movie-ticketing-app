@@ -25,8 +25,25 @@ export class HomeComponent {
   selectedLanguage: string ='';
   filteredMovies : Movie[] = [] ;
   selectedLocation: string ='';
+  selectedMovie: Movie | null =null;
+  selectedDate: string ='';
+  selectedTime: string = ''; 
+  today: string = '';
+  defaultTimes: string[] = ['10:00 AM', '01:00 PM', '04:00 PM', '07:00 PM', '10:00 PM'];
+ 
 
   constructor(private service:MovieServiceService) {
+    
+  }
+
+
+
+  ngOnInit() : void {
+    this.fetchData();
+    this.today = this.getTodayDate();
+  }
+
+  fetchData() : void {
     this.service.get().subscribe({
       next: (result: any) => {
         this.data=result;
@@ -37,6 +54,14 @@ export class HomeComponent {
         console.log("error in fetching movies data",error);
       }
     })
+  }
+
+  getTodayDate(): string {
+    const today = new Date();
+    const yyyy = today.getFullYear();
+    const mm = String(today.getMonth() + 1).padStart(2, '0'); 
+    const dd = String(today.getDate()).padStart(2, '0');
+    return `${yyyy}-${mm}-${dd}`;
   }
 
   login () {
@@ -55,8 +80,20 @@ export class HomeComponent {
     });
   }
 
-  movieClicked () {
+  movieClicked (movie:Movie) {
+    this.selectedMovie = movie;
+  }
+
+  bookTicket () {
+    if(this.selectedDate == '' || this.selectedTime == '' ) {
+      alert("Select time and date");
+    }
 
   }
 
+  closeModal () {
+    this.selectedMovie = null;
+    this.selectedDate = '';
+    this.selectedTime = '';
+  }
 }
