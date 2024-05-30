@@ -11,7 +11,6 @@ import { LoginComponent } from './components/login/login.component';
 
 import { RegisterComponent } from './components/register/register.component';
 import { HomeComponent } from './components/home/home.component';
-import { ScheduleMovieComponent } from './components/schedule-movie/schedule-movie.component';
 
 import { provideHttpClient,withInterceptorsFromDi} from '@angular/common/http';
 import { AuthGuard } from './auth.guard';
@@ -29,8 +28,7 @@ const appRoutes: Routes = [
     SeatComponent,
     LoginComponent,
     RegisterComponent,
-    HomeComponent,
-    ScheduleMovieComponent
+    HomeComponent
   ],
   imports: [
     BrowserModule,

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { MovieServiceService } from '../../services/movie-service.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-seat',
@@ -10,7 +11,7 @@ import { MovieServiceService } from '../../services/movie-service.service';
 export class SeatComponent {
 
   movieTitle:string='';
-  screen:string = '';
+  screen:string = "Harihara Cinemas";
   time:string = '';
 
   rows: string[] = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
@@ -25,7 +26,7 @@ export class SeatComponent {
   currency: string = "Rs";
   movieAndTime : any;
 
-  constructor(private movieService:MovieServiceService) {}
+  constructor(private movieService:MovieServiceService, private router:Router) {}
 
   ngOnInit () : void {
     this.movieService.movieTime$.subscribe(state => {
@@ -68,7 +69,8 @@ export class SeatComponent {
   //Checkout handler
   showSelected() : void {
     if(this.selected.length > 0) {
-      alert("For movie"+"Selected seats: " + this.selected + "\nTotal: " + (this.ticketPrice * this.selected.length + this.convinienceFee));
+      alert("For movie "+this.movieTitle+" at "+ this.screen + " on "+ this.time + "\nSelected seats: " + this.selected + "\nTotal: " + (this.ticketPrice * this.selected.length + this.convinienceFee));
+      this.router.navigate(['/'])
     } else {
       alert("No seats selected!");
     }
