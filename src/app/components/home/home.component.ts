@@ -11,8 +11,6 @@ interface Movie {
   duration: number;
   poster: string;
   trailer: string;
-  location: string[];
-  locationSerialized: string
 }
 @Component({
   selector: 'app-home',
@@ -78,7 +76,6 @@ export class HomeComponent {
   filterMovies () {
     this.filteredMovies = this.data.filter(movie => {
       return (!this.selectedLanguage || movie.lang === this.selectedLanguage) &&
-             (!this.selectedLocation || movie.location.includes(this.selectedLocation)) &&
              (!this.searchQuery || movie.title.toLowerCase().includes(this.searchQuery.toLowerCase()));
     });
   }
