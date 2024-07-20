@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
+import * as bcrypt from 'bcryptjs';
 
 @Injectable({
   providedIn: 'root'
@@ -8,7 +9,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 
 export class UserServiceService {
   headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-  baseUrl : string = 'https://localhost:7258/api/Users';
+  baseUrl : string = 'https://localhost:7082/api/Users';
   private loginStateSubject: BehaviorSubject<boolean>;
   public loginState$: Observable<boolean>;
 
@@ -28,6 +29,7 @@ export class UserServiceService {
   }
 
   post(data: any) {
+    console.log(this.baseUrl, JSON.stringify(data),{headers:this.headers})
     return this.http.post(this.baseUrl, JSON.stringify(data),{headers:this.headers})
   }
 
@@ -37,6 +39,16 @@ export class UserServiceService {
 
   getMethod() {
     return this.http.get(this.baseUrl);
+  }
+
+  hashPassword(password:string):string {
+    const salt = bcrypt.genSaltSync(10); // Generate a salt
+    const hash = bcrypt.hashSync(password, salt); // Hash the password with the salt
+    return hash;
+  }
+
+  comparePassword(password:string,hash:string) : boolean {
+    return bcrypt.compareSync(password,hash)
   }
 
 }

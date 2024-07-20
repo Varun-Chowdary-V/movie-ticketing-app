@@ -28,8 +28,8 @@ export class LoginComponent {
       this.service.getMethod().subscribe({
         next: (result: any) => {
           console.log("response data ==> ", result);
-          this.data=result.some((element: { email: string; password: string; } )  => {
-            return (element.email===this.email && element.password===this.password)
+          this.data=result.some((element: { email: string; passwordHashed: string; } )  => {
+            return (element.email===this.email && this.service.comparePassword(this.password,element.passwordHashed))
           });
           if(this.data.length===0){
             alert("Invalid email or password");

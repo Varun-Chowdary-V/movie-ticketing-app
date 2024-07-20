@@ -15,6 +15,7 @@ export class RegisterComponent {
   @Input() dateofbirth : string ='' ;
   @Input() gender : string ='' ;
   @Input() password : string ='' ;
+  hashedPassword:string ='';
   data={} ;
   firstname: any;
   lastname: any;
@@ -39,14 +40,15 @@ export class RegisterComponent {
     ) {
       alert("All fields are mandatory");
     } else {
+      this.hashedPassword = this.service.hashPassword(this.password);
       this.data  = {
         FirstName: this.firstName,
         LastName: this.lastName,
         Email: this.email,
         Phone: this.phone,
-        DOB: this.dateofbirth,
+        DOB: this.convertToSQLDate(this.dateofbirth),
         Gender: this.gender,
-        Password: this.password
+        PasswordHashed : this.hashedPassword
       }
       console.log("Data in submit", this.data);
       this.service.post(this.data).subscribe({
@@ -76,6 +78,11 @@ export class RegisterComponent {
       })
 
     }
+  }
+
+  convertToSQLDate(dateString: string): string {
+    const date = new Date(dateString);
+    return date.toISOString().slice(0, 10);
   }
   
 
