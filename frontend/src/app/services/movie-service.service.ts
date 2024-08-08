@@ -7,7 +7,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 })
 export class MovieServiceService {
   headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-  baseUrl : string = 'https://localhost:7258/api/Movies';
+  baseUrl : string = 'https://localhost:7258/api/Movie';
   private movieTimeSubject: BehaviorSubject<any>;
   public movieTime$: Observable<any>;
 
@@ -27,7 +27,7 @@ export class MovieServiceService {
   }
 
   // Method to get the current login state
-  getMovieState(): any {
+  getMovieState(): Observable<any> {
     return this.movieTimeSubject.value;
   }
 }

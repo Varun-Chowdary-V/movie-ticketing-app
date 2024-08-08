@@ -10,21 +10,21 @@ import * as bcrypt from 'bcryptjs';
 export class UserServiceService {
   headers = new HttpHeaders({ 'Content-Type': 'application/json' });
   baseUrl : string = 'https://localhost:7082/api/Users';
-  private loginStateSubject: BehaviorSubject<boolean>;
-  public loginState$: Observable<boolean>;
+  private loginStateSubject: BehaviorSubject<number>;
+  public loginState$: Observable<number>;
 
   constructor(private http: HttpClient) { 
-    this.loginStateSubject = new BehaviorSubject<boolean>(false);
+    this.loginStateSubject = new BehaviorSubject<number>(-1);
     this.loginState$ = this.loginStateSubject.asObservable();
   }
 
   // Method to update the login state
-  setLoginState(isLoggedIn: boolean): void {
+  setLoginState(isLoggedIn: number): void {
     this.loginStateSubject.next(isLoggedIn);
   }
 
   // Method to get the current login state
-  getLoginState(): boolean {
+  getLoginState(): number {
     return this.loginStateSubject.value;
   }
 

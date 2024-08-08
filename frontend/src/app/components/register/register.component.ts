@@ -11,31 +11,24 @@ export class RegisterComponent {
   @Input() firstName : string ='' ;
   @Input() lastName : string ='' ;
   @Input() email : string ='' ;
-  @Input() phone : string ='' ;
-  @Input() dateofbirth : string ='' ;
-  @Input() gender : string ='' ;
   @Input() password : string ='' ;
   hashedPassword:string ='';
   data={} ;
-  firstname: any;
-  lastname: any;
-  emailAddress: any;
+  firstname: string = '';
+  lastname: string ='';
+  emailAddress: string = '';
 
   constructor(private service:UserServiceService, private router: Router) {
-    console.log("Constructor")
   }
 
   ngOnInit() {
 
   }
 
-  submit() {
+  submit() : void {
     if (this.firstName ===''|| 
         this.lastName === ''||
         this.email === ''||
-        this.dateofbirth === '' ||
-        this.phone === '' ||
-        this.gender === '' ||
         this.password === '' 
     ) {
       alert("All fields are mandatory");
@@ -45,9 +38,6 @@ export class RegisterComponent {
         FirstName: this.firstName,
         LastName: this.lastName,
         Email: this.email,
-        Phone: this.phone,
-        DOB: this.convertToSQLDate(this.dateofbirth),
-        Gender: this.gender,
         PasswordHashed : this.hashedPassword
       }
       console.log("Data in submit", this.data);
@@ -64,9 +54,6 @@ export class RegisterComponent {
           this.firstName = ''; 
           this.lastName = '';
           this.email = '';
-          this.dateofbirth = '';
-          this.phone = '';
-          this.gender = '';
           this.password = '';
           this.router.navigate(['/login']);        
 
@@ -79,11 +66,5 @@ export class RegisterComponent {
 
     }
   }
-
-  convertToSQLDate(dateString: string): string {
-    const date = new Date(dateString);
-    return date.toISOString().slice(0, 10);
-  }
-  
 
 }

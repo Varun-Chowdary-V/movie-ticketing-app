@@ -2,16 +2,8 @@ import { Component } from '@angular/core';
 import { MovieServiceService } from '../../services/movie-service.service';
 import { Router } from '@angular/router';
 import { UserServiceService } from '../../services/user-service.service';
+import { Movie } from '../../models';
 
-interface Movie {
-  id:number,
-  title: string;
-  description: string;
-  lang: string;
-  duration: number;
-  poster: string;
-  trailer: string;
-}
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -21,7 +13,7 @@ interface Movie {
 export class HomeComponent {
   data : Movie[] =[];
   searchQuery : string='';
-  isLoggedIn : boolean = false;
+  isLoggedIn : number = -1;
   selectedLanguage: string ='';
   filteredMovies : Movie[] = [] ;
   selectedLocation: string ='';
@@ -48,7 +40,6 @@ export class HomeComponent {
     this.service.get().subscribe({
       next: (result: any) => {
         this.data=result;
-        console.log(this.data);
         this.filteredMovies=result;
       },
       error: error => {
@@ -65,26 +56,26 @@ export class HomeComponent {
     return `${yyyy}-${mm}-${dd}`;
   }
 
-  login () {
+  login () : void {
     this.router.navigate(['/login'])
   }
 
-  logout () {
-    this.userService.setLoginState(false);
+  logout () : void {
+    this.userService.setLoginState(-1);
   }
 
-  filterMovies () {
+  filterMovies () : void {
     this.filteredMovies = this.data.filter(movie => {
       return (!this.selectedLanguage || movie.lang === this.selectedLanguage) &&
              (!this.searchQuery || movie.title.toLowerCase().includes(this.searchQuery.toLowerCase()));
     });
   }
 
-  movieClicked (movie:Movie) {
+  movieClicked (movie:Movie) : void {
     this.selectedMovie = movie;
   }
 
-  bookTicket () {
+  bookTicket () : void {
     if(this.selectedDate == '' || this.selectedTime == '' ) {
       alert("Select time and date");
     }

@@ -14,6 +14,7 @@ import { HomeComponent } from './components/home/home.component';
 
 import { provideHttpClient,withInterceptorsFromDi} from '@angular/common/http';
 import { AuthGuard } from './auth.guard';
+import { ProfileComponent } from './components/profile/profile.component';
 
 const appRoutes: Routes = [
   {path: '', component: HomeComponent },
@@ -28,7 +29,8 @@ const appRoutes: Routes = [
     SeatComponent,
     LoginComponent,
     RegisterComponent,
-    HomeComponent
+    HomeComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,

@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { UserServiceService } from '../../services/user-service.service';
 import { Router } from '@angular/router';
+import { User } from '../../models';
 
 
 @Component({
@@ -11,7 +12,7 @@ import { Router } from '@angular/router';
 export class LoginComponent {
   @Input() email : string = '' ;
   @Input() password : string = '' ;
-  data : any = {};
+  data : User | null = null;
 
   constructor(private service:UserServiceService, private router:Router) {
 
@@ -21,17 +22,17 @@ export class LoginComponent {
 
   }
 
-  submit() {
+  submit() : void {
     if(this.email === ''||this.password === '') {
       alert("Invalid email or password");
     } else {
       this.service.getMethod().subscribe({
         next: (result: any) => {
           console.log("response data ==> ", result);
-          this.data=result.some((element: { email: string; passwordHashed: string; } )  => {
+          this.data=result.find((element: { id:number, email: string; passwordHashed: string; } )  => {
             return (element.email===this.email && this.service.comparePassword(this.password,element.passwordHashed))
           });
-          if(this.data.length===0){
+          if(this.data==null){
             alert("Invalid email or password");
             this.email='';
             this.password='';
@@ -41,7 +42,7 @@ export class LoginComponent {
             console.log(this.data);
             this.email='';
             this.password='';
-            this.service.setLoginState(true);
+            this.service.setLoginState(this.data.id);
             this.router.navigate(['/'])
           }
         },
