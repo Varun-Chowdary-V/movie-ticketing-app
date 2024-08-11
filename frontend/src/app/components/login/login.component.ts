@@ -12,7 +12,7 @@ import { User } from '../../models';
 export class LoginComponent {
   @Input() email : string = '' ;
   @Input() password : string = '' ;
-  data : User | null = null;
+  data : User | undefined = undefined;
 
   constructor(private service:UserServiceService, private router:Router) {
 
@@ -26,13 +26,13 @@ export class LoginComponent {
     if(this.email === ''||this.password === '') {
       alert("Invalid email or password");
     } else {
-      this.service.getMethod().subscribe({
+      this.service.getUsers().subscribe({
         next: (result: any) => {
           console.log("response data ==> ", result);
           this.data=result.find((element: { id:number, email: string; passwordHashed: string; } )  => {
             return (element.email===this.email && this.service.comparePassword(this.password,element.passwordHashed))
           });
-          if(this.data==null){
+          if(this.data==undefined){
             alert("Invalid email or password");
             this.email='';
             this.password='';

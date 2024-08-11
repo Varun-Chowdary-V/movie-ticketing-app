@@ -6,20 +6,13 @@ export interface Movie {
     genre: string;
     duration: number;
     poster:string;
-    trailer:string    
-}
-
-export interface Screen {
-    screenId:number;
-    movieId:number;
-    theatreId:number;
-    showTime: string;
+    rating:number    
 }
 
 export interface User{
     id:number;
-    firstName:string;
-    lastName:string;
+    fname:string;
+    lname:string;
     email:string;
     passwordHashed:string;
     role:string;
@@ -28,10 +21,34 @@ export interface User{
 export interface Booking {
     id: number;
     userId: number;
-    movieId: number;
-    theatreId:number;
-    bookingDate:string;
-    bookingTime:string;
-    seatsString:string;
+    showId: number;
+    bookingDateTime:Date;
+    seats:string;
     price:number;
+}
+
+export interface Theatre {
+    id:number;
+    name:string;
+    location:string;
+    capacity:number;
+}
+
+export interface Show {
+    id: number;
+    movieId: number,
+    theatreId: number,
+    screenNumber:number,
+    showTime:string,
+    availableSeats:string,
+    ticketFare: number,
+}
+
+export interface Review {
+    id: number,
+    movieId: number,
+    userId: number,
+    rating: number,
+    comment: string,
+    reviewDate:Date
 }

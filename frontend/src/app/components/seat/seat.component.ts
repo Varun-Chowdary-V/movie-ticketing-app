@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { MovieServiceService } from '../../services/movie-service.service';
 import { Router } from '@angular/router';
+import { BookingServiceService } from '../../services/booking-service.service';
+import { Theatre } from '../../models';
+import { TheatreServiceService } from '../../services/theatre-service.service';
 
 @Component({
   selector: 'app-seat',
@@ -13,6 +16,11 @@ export class SeatComponent {
   movieTitle:string='';
   screen:string = "Harihara Cinemas";
   time:string = '';
+  movieId!:number ;
+  theatreId!:number;
+  screenId!:number;
+  userId!:number;
+
 
   rows: string[] = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
   cols: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
@@ -24,17 +32,27 @@ export class SeatComponent {
   convinienceFee: number = 30;
   totalPrice: number = 0;
   currency: string = "Rs";
-  movieAndTime : any;
+  booking : any;
 
-  constructor(private movieService:MovieServiceService, private router:Router) {}
+  constructor(private bookingService:BookingServiceService, private router:Router, private theatreService:TheatreServiceService) {}
 
   ngOnInit () : void {
-    this.movieService.movieTime$.subscribe(state => {
-      this.movieAndTime = state;
+    this.bookingService.booking$.subscribe(state => {
+      this.booking = state;
     })
-    console.log(this.movieAndTime)
-    this.movieTitle=this.movieAndTime.movie.title;
-    this.time = this.movieAndTime.date + " " + this.movieAndTime.time;
+    console.log(this.booking)
+    this.movieTitle=this.booking.movie.title;
+    this.time = this.booking.date + " " + this.booking.time;
+    this.getReservedSeats();
+  }
+
+  getReservedSeats() {
+    this.theatreService.getTheatre(this.booking.theatreId).subscribe({
+      next: (result) =>{
+        console.log("Get reserved seatss",result);
+        this.reserved = result.bookedSeats.split(', ')
+      } 
+    })
   }
 
   //Get status of each seat

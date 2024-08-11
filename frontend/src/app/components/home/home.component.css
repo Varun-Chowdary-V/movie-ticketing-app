@@ -20,6 +20,51 @@
   width: 350px;
 }
 
+.profile-icon {
+  margin-right: 20px;
+  cursor: pointer;
+}
+
+.profile-icon {
+  width: 30px;
+  height: 30px;
+}
+
+.profile-container {
+  padding: 20px;
+  border-left: 2px solid #ddd;
+  height: 100%;
+  overflow-y: auto;
+  box-sizing: border-box;
+  display: block;
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 20%;
+  height: 100vh;
+  background-color: rgba(255, 255, 255, 0.9);
+  box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+}
+
+.profile-header {
+  display: flex;
+}
+.profile-header h2 {
+  margin-right: 40px;
+}
+
+.user-info,
+.bookings {
+  margin-bottom: 20px;
+}
+
+.booking-item {
+  padding: 10px;
+  background-color: #918c49;
+  border-bottom: 1px solid #ddd;
+}
+
 .auth-button button {
   padding: 5px 10px;
   font-size: 16px;
@@ -90,7 +135,10 @@
   width: 100%;
   height: auto;
   overflow: auto;
-  background-color: rgba(0, 0, 0, 0.4);
+  border-color: #000;
+  border-width: 100vh;
+  background-color: rgba(2, 0, 0, 0.4);
+  background-repeat: repeat;
 }
 
 .modal-content {

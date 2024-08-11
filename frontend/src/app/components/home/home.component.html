@@ -1,67 +1,204 @@
-<div class="container" *ngIf="!selectedMovie">
+<div class="container">
+  <div *ngIf="!selectedMovie">
     <header class="header">
       <div class="search-bar">
-        <input type="text" placeholder="Search movies..." (change)="filterMovies()" [(ngModel)]="searchQuery">
+        <input
+          type="text"
+          placeholder="Search movies..."
+          [(ngModel)]="searchQuery"
+          (input)="filterMovies()"
+        />
+      </div>
+      <div class="profile-icon">
+        <img
+          src="assets/profile_avatar.avif"
+          alt="Profile"
+          (click)="toggleProfile($event)"
+        />
       </div>
       <div class="auth-button">
-        <button (click)="isLoggedIn ? logout() : login()">
-          {{ isLoggedIn ? 'Logout' : 'Login' }}
+        <button (click)="isLoggedIn != -1 ? logout() : login()">
+          {{ isLoggedIn != -1 ? "Logout" : "Login" }}
         </button>
       </div>
     </header>
-  
+
+    <!-- Main Content -->
     <main class="main-content">
+      <!-- Filters -->
       <aside class="filters">
         <h3>Filters</h3>
-        <div class="filter">
-          <label for="language">Language</label>
-          <select id="language" [(ngModel)]="selectedLanguage" (change)="filterMovies()">
+
+        <!-- Location Filter -->
+        <div class="filter" *ngIf="locations.length">
+          <label for="location">Location</label>
+          <select
+            id="location"
+            [(ngModel)]="selectedLocation"
+            (change)="onLocationChange()"
+          >
             <option value="">All</option>
-            <option value="English">English</option>
-            <option value="Telugu">Telugu</option>
-            <option value="Hindi">Hindi</option>
-            <option value="Tamil">Tamil</option>
+            <option *ngFor="let location of locations" [value]="location">
+              {{ location }}
+            </option>
           </select>
         </div>
-  
-        <div class="filter">
-          <label for="location">Location</label>
-          <select id="location" [(ngModel)]="selectedLocation" (change)="filterMovies()">
+
+        <!-- Genre Filter -->
+        <div class="filter" *ngIf="genres.length">
+          <label for="genre">Genre</label>
+          <select
+            id="genre"
+            [(ngModel)]="selectedGenre"
+            (change)="onGenreChange()"
+            [disabled]="!selectedLocation"
+          >
             <option value="">All</option>
-            <option value="Hyderabad">Hyderabad</option>
-            <option value="Bangalore">Bangalore</option>
-            <option value="Mumbai">Mumbai</option>
-            <option value="Chennai">Chennai</option>
+            <option *ngFor="let genre of genres" [value]="genre">
+              {{ genre }}
+            </option>
+          </select>
+        </div>
+
+        <!-- Language Filter -->
+        <div class="filter" *ngIf="languages.length">
+          <label for="language">Language</label>
+          <select
+            id="language"
+            [(ngModel)]="selectedLanguage"
+            (change)="onLanguageChange()"
+            [disabled]="!selectedLocation || !selectedGenre"
+          >
+            <option value="">All</option>
+            <option *ngFor="let language of languages" [value]="language">
+              {{ language }}
+            </option>
           </select>
         </div>
       </aside>
-  
+
+      <!-- Movie List -->
       <section class="movie-list">
-        <div class="movie-card" *ngFor="let movie of filteredMovies" (click)="movieClicked(movie)">
-          <img [src]="movie.poster" alt="{{ movie.title }} poster">
+        <div
+          class="movie-card"
+          *ngFor="let movie of filteredMovies"
+          (click)="movieClicked(movie); $event.preventDefault()"
+        >
+          <img [src]="movie.poster" alt="{{ movie.title }} poster" />
           <h4>{{ movie.title }}</h4>
-          <p>{{ movie.description | slice:0:100 }}...</p>
+          <p>{{ movie.description | slice : 0 : 100 }}...</p>
+
+          <!-- Movie Reviews -->
+          <div class="movie-reviews">
+            <div *ngFor="let review of movie.reviews" class="review-card">
+              <p><strong>{{ review.userName }}</strong></p>
+              <p>Rating: {{ review.rating }}</p>
+              <p>{{ review.comment }}</p>
+            </div>
+          </div>
         </div>
       </section>
     </main>
 
-</div>
-<div class="modal" *ngIf="selectedMovie">
-    <div class="modal-content">
-        <h2>{{ selectedMovie.title }}</h2>
-        <p>{{ selectedMovie.description }}</p>
-        
-        <label for="date">Select Date:</label>
-        <input type="date" id="date" [(ngModel)]="selectedDate" [min]="today">
-        
-        <label for="time">Select Time:</label>
-        <select id="time" [(ngModel)]="selectedTime">
-        <option *ngFor="let time of defaultTimes" [value]="time">{{ time }}</option>
-        </select>
-        <div class="btn">
-            <button (click)="bookTicket()">Book Tickets</button>
-            <button (click)="closeModal()">Cancel</button>
+    <!-- Profile Container -->
+    <div class="profile-container" *ngIf="showProfile">
+      <div class="profile-header">
+        <h2>User Profile</h2>
+        <button (click)="hideProfileOnClick()">X</button>
+      </div>
+      <div class="user-info">
+        <p><strong>Name:</strong> {{ user?.fname }}</p>
+        <p><strong>Email:</strong> {{ user?.email }}</p>
+      </div>
+
+      <h3>Bookings</h3>
+      <div class="bookings">
+        <div *ngFor="let booking of bookings" class="booking-item">
+          <p><strong>Movie:</strong> {{ booking.movieTitle }}</p>
+          <p><strong>Date:</strong> {{ booking.bookingDate }}</p>
+          <p><strong>Time:</strong> {{ booking.bookingTime }}</p>
+          <p><strong>Seats:</strong> {{ booking.seatsString }}</p>
         </div>
+      </div>
+
+      <!-- Reviews Section -->
+      <h3>Reviews</h3>
+      <div class="reviews">
+        <div *ngFor="let review of userReviews" class="review-item">
+          <p><strong>Movie:</strong> {{ review.movieTitle }}</p>
+          <p><strong>Rating:</strong> {{ review.rating }}</p>
+          <p><strong>Comment:</strong> {{ review.comment }}</p>
+        </div>
+      </div>
     </div>
+  </div>
+
+  <!-- Modal for Movie Details -->
+  <div class="modal" *ngIf="selectedMovie">
+    <div class="modal-content">
+      <h2>{{ selectedMovie?.title }}</h2>
+      <p>{{ selectedMovie?.description }}</p>
+
+      <!-- Date Selector -->
+      <label for="date">Select Date:</label>
+      <input type="date" id="date" [(ngModel)]="selectedDate" [min]="today" />
+
+      <!-- Theatre Selector -->
+      <label for="theatre">Select Theatre:</label>
+      <select id="theatre" [(ngModel)]="selectedTheatreId" (change)="handleTheatreSelect()">
+        <option *ngFor="let theatre of theatres" [value]="theatre.id">
+          {{ theatre.name }}
+        </option>
+      </select>
+
+      <!-- Screen Selector -->
+      <label for="screen">Select Screen:</label>
+      <select id="screen" [(ngModel)]="selectedScreenId" (change)="handleScreenSelect()">
+        <option *ngFor="let screen of screens" [value]="screen.id">
+          {{ screen.screenNumber }}
+        </option>
+      </select>
+
+      <!-- Show Selector -->
+      <label for="time">Select Show Time:</label>
+      <select id="time" [(ngModel)]="selectedTime">
+        <option *ngFor="let time of showTimes" [value]="time">
+          {{ time }}
+        </option>
+      </select>
+
+      <!-- Review Form -->
+      <h3>Write a Review</h3>
+      <form (ngSubmit)="submitReview()">
+        <div class="form-group">
+          <label for="rating">Rating (1-5):</label>
+          <input
+            type="number"
+            id="rating"
+            [(ngModel)]="reviewRating"
+            name="rating"
+            min="1"
+            max="5"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="comment">Comment:</label>
+          <textarea
+            id="comment"
+            [(ngModel)]="reviewComment"
+            name="comment"
+            required
+          ></textarea>
+        </div>
+        <button type="submit">Submit Review</button>
+      </form>
+
+      <!-- Booking Buttons -->
+      <div class="btn">
+        <button (click)="bookTicket()">Book Tickets</button>
+        <button (click)="closeModal()">Cancel</button>
+      </div>
+    </div>
+  </div>
 </div>
-      

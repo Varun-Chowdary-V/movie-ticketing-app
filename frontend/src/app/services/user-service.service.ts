@@ -2,14 +2,15 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import * as bcrypt from 'bcryptjs';
+import { environment } from '../../environment/environment';
+import { Booking, Review, User } from '../models';
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class UserServiceService {
-  headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-  baseUrl : string = 'https://localhost:7082/api/Users';
+  baseUrl : string = `${environment.baseUrl}/Users`;
   private loginStateSubject: BehaviorSubject<number>;
   public loginState$: Observable<number>;
 
@@ -18,27 +19,62 @@ export class UserServiceService {
     this.loginState$ = this.loginStateSubject.asObservable();
   }
 
-  // Method to update the login state
+  // Method to update the login state by setting userid
   setLoginState(isLoggedIn: number): void {
     this.loginStateSubject.next(isLoggedIn);
   }
 
-  // Method to get the current login state
+  // Method to get the current user id
   getLoginState(): number {
     return this.loginStateSubject.value;
   }
 
-  post(data: any) {
-    console.log(this.baseUrl, JSON.stringify(data),{headers:this.headers})
-    return this.http.post(this.baseUrl, JSON.stringify(data),{headers:this.headers})
+  post(user: User) {
+    if(user.fname=="Varun"){
+      user.role="Admin"
+    } else {
+      user.role="User"
+    }
+    console.log(this.baseUrl, JSON.stringify(user))
+    return this.http.post(this.baseUrl, JSON.stringify(user))
   }
 
-  put(data: any) {
-    return this.http.put(this.baseUrl, JSON.stringify(data),{headers:this.headers})
+  put(user: User) {
+    return this.http.put(this.baseUrl, JSON.stringify(user))
   }
 
-  getMethod() {
-    return this.http.get(this.baseUrl);
+  getUsers() : Observable<User[]> {
+    return this.http.get<User[]>(this.baseUrl);
+  }
+
+  getUserBookings(userId:number) : Observable<Booking[]> {
+    return this.http.get<Booking[]>(`${this.baseUrl}/${userId}/Bookings`);
+  }
+
+  getUser(id:number) : Observable<User> {
+    return this.http.get<User>(`${this.baseUrl}/${id}`);
+  }
+
+  deleteUser(id:number) : void {
+    this.http.delete(`${this.baseUrl}/${id}`);
+  }
+
+  getReviewsOfUser(id:number) : Observable<Review[]> {
+    return this.http.get<Review[]>(`${this.baseUrl}/${id}/Reviews`);
+  }
+
+  login(email:string,password:string){
+    this.getUsers().subscribe({
+      next: (users:User[]) => {
+        if(users){
+          let userId=users.find((user:User)=>(user.email==email && this.comparePassword(user.passwordHashed,this.hashPassword(password))))?.id;
+          if(userId!=undefined){
+            this.setLoginState(userId);
+          }          
+          this.setLoginState(-1);
+        }
+      }
+    })
   }
 
   hashPassword(password:string):string {
