@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { UserServiceService } from '../../services/user-service.service';
 import { Router } from '@angular/router';
+import { User } from '../../models';
 
 @Component({
   selector: 'app-register',
@@ -13,7 +14,7 @@ export class RegisterComponent {
   @Input() email : string ='' ;
   @Input() password : string ='' ;
   hashedPassword:string ='';
-  data={} ;
+  data:User|null = null;
   firstname: string = '';
   lastname: string ='';
   emailAddress: string = '';
@@ -35,10 +36,12 @@ export class RegisterComponent {
     } else {
       this.hashedPassword = this.service.hashPassword(this.password);
       this.data  = {
-        FirstName: this.firstName,
-        LastName: this.lastName,
-        Email: this.email,
-        PasswordHashed : this.hashedPassword
+        id: Math.random()*10000,
+        fname: this.firstName,
+        lname: this.lastName,
+        email: this.email,
+        passwordHashed : this.hashedPassword,
+        role:"User"
       }
       console.log("Data in submit", this.data);
       this.service.post(this.data).subscribe({

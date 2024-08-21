@@ -1,0 +1,35 @@
+<div class="header">
+  <div class="logo">Logo</div>
+  <button class="nav-element" (click)="goHome()">Home</button>
+  <button class="nav-element" (click)="goHome()">Now Showing</button>
+  <button class="nav-element" (click)="goHome()">Coming Soon</button>
+  <button class="nav-element" (click)="goHome()">Movies</button>
+  <img
+    class="profile-icon"
+    type="jpeg"
+    src="/src/assets/profileImage.jpeg"
+    alt="profile"
+    (click)="profileClicked()"
+  />
+</div>
+<div class="profile-container" *ngIf="showProfile">
+  <div class="profile-header">
+    <h2>User Profile</h2>
+    <button (click)="hideProfile()">X</button>
+  </div>
+  <div class="user-info">
+    <p><strong>Name:</strong> {{ user?.fname }}</p>
+    <p><strong>Email:</strong> {{ user?.email }}</p>
+  </div>
+
+  <h3>Bookings</h3>
+  <div class="bookings">
+    <div *ngFor="let booking of bookings" class="booking-item">
+      <p><strong>Movie:</strong> {{ getMovieTitle(booking.showId) }}</p>
+      <p><strong>Date & Time:</strong> {{ booking.bookingDateTime }}</p>
+      <p><strong>Seats:</strong> {{ booking.seats }}</p>
+    </div>
+  </div>
+
+  <button class="logout" (click)="logout()">Logout</button>
+</div>

@@ -1,0 +1,715 @@
+<style>
+  
+</style>
+<style>
+  
+</style>
+<style>
+  
+</style>
+<div class="flex min-h-screen w-full flex-col bg-background">
+  <header
+    class="sticky top-0 z-30 flex h-16 items-center justify-between border-b bg-background px-4 sm:px-6 md:px-8"
+  >
+    <div class="flex items-center gap-4">
+      <button
+        class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground h-10 w-10 lg:hidden"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="h-6 w-6"
+        >
+          <line x1="4" x2="20" y1="12" y2="12"></line>
+          <line x1="4" x2="20" y1="6" y2="6"></line>
+          <line x1="4" x2="20" y1="18" y2="18"></line>
+        </svg>
+        <span class="sr-only">Toggle sidebar</span>
+      </button>
+      <a
+        class="flex items-center gap-2 text-lg font-semibold"
+        href="#"
+        rel="ugc"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="h-6 w-6"
+        >
+          <path
+            d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"
+          ></path>
+          <path d="M13 5v2"></path>
+          <path d="M13 17v2"></path>
+          <path d="M13 11v2"></path>
+        </svg>
+        <span>Bookmyshow</span>
+      </a>
+    </div>
+    <div class="flex items-center gap-4">
+      <button
+        class="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground h-10 w-10 rounded-full"
+        type="button"
+        id="radix-:r5:"
+        aria-haspopup="menu"
+        aria-expanded="false"
+        data-state="closed"
+      >
+        <img
+          src="/placeholder.svg"
+          alt="User avatar"
+          width="32"
+          height="32"
+          class="rounded-full"
+          style="aspect-ratio: 32 / 32; object-fit: cover"
+        />
+      </button>
+    </div>
+  </header>
+  <div class="flex flex-1">
+    <aside class="hidden h-full border-r bg-background lg:block">
+      <nav class="flex h-full flex-col items-start gap-4 p-6">
+        <a
+          class="flex items-center gap-2 text-lg font-semibold"
+          href="#"
+          rel="ugc"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="h-6 w-6"
+          >
+            <rect width="7" height="9" x="3" y="3" rx="1"></rect>
+            <rect width="7" height="5" x="14" y="3" rx="1"></rect>
+            <rect width="7" height="9" x="14" y="12" rx="1"></rect>
+            <rect width="7" height="5" x="3" y="16" rx="1"></rect>
+          </svg>
+          Dashboard
+        </a>
+        <a
+          class="flex items-center gap-2 text-lg font-semibold"
+          href="#"
+          rel="ugc"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="h-6 w-6"
+          >
+            <path
+              d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"
+            ></path>
+            <path d="M13 5v2"></path>
+            <path d="M13 17v2"></path>
+            <path d="M13 11v2"></path>
+          </svg>
+          Reservations
+        </a>
+        <a
+          class="flex items-center gap-2 text-lg font-semibold"
+          href="#"
+          rel="ugc"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="h-6 w-6"
+          >
+            <path
+              d="m16 13 5.223 3.482a.5.5 0 0 0 .777-.416V7.87a.5.5 0 0 0-.752-.432L16 10.5"
+            ></path>
+            <rect x="2" y="6" width="14" height="12" rx="2"></rect>
+          </svg>
+          Movies
+        </a>
+        <a
+          class="flex items-center gap-2 text-lg font-semibold"
+          href="#"
+          rel="ugc"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="h-6 w-6"
+          >
+            <path d="M2 10s3-3 3-8"></path>
+            <path d="M22 10s-3-3-3-8"></path>
+            <path d="M10 2c0 4.4-3.6 8-8 8"></path>
+            <path d="M14 2c0 4.4 3.6 8 8 8"></path>
+            <path d="M2 10s2 2 2 5"></path>
+            <path d="M22 10s-2 2-2 5"></path>
+            <path d="M8 15h8"></path>
+            <path d="M2 22v-1a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v1"></path>
+            <path d="M14 22v-1a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v1"></path>
+          </svg>
+          Theatres
+        </a>
+        <a
+          class="flex items-center gap-2 text-lg font-semibold"
+          href="#"
+          rel="ugc"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="h-6 w-6"
+          >
+            <polygon points="6 3 20 12 6 21 6 3"></polygon>
+          </svg>
+          Shows
+        </a>
+        <a
+          class="flex items-center gap-2 text-lg font-semibold"
+          href="#"
+          rel="ugc"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="h-6 w-6"
+          >
+            <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
+            <circle cx="9" cy="7" r="4"></circle>
+            <path d="M22 21v-2a4 4 0 0 0-3-3.87"></path>
+            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+          </svg>
+          Users
+        </a>
+      </nav>
+    </aside>
+    <main class="flex-1 p-6 md:p-8 lg:p-10">
+      <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <div
+          class="rounded-lg border bg-card text-card-foreground shadow-sm"
+          data-v0-t="card"
+        >
+          <div class="flex flex-col space-y-1.5 p-6">
+            <h3
+              class="whitespace-nowrap text-2xl font-semibold leading-none tracking-tight"
+            >
+              Total Users
+            </h3>
+          </div>
+          <div class="p-6">
+            <div class="text-4xl font-bold">12,345</div>
+          </div>
+        </div>
+        <div
+          class="rounded-lg border bg-card text-card-foreground shadow-sm"
+          data-v0-t="card"
+        >
+          <div class="flex flex-col space-y-1.5 p-6">
+            <h3
+              class="whitespace-nowrap text-2xl font-semibold leading-none tracking-tight"
+            >
+              Total Reservations
+            </h3>
+          </div>
+          <div class="p-6">
+            <div class="text-4xl font-bold">7,890</div>
+          </div>
+        </div>
+        <div
+          class="rounded-lg border bg-card text-card-foreground shadow-sm"
+          data-v0-t="card"
+        >
+          <div class="flex flex-col space-y-1.5 p-6">
+            <h3
+              class="whitespace-nowrap text-2xl font-semibold leading-none tracking-tight"
+            >
+              Total Movies
+            </h3>
+          </div>
+          <div class="p-6">
+            <div class="text-4xl font-bold">250</div>
+          </div>
+        </div>
+        <div
+          class="rounded-lg border bg-card text-card-foreground shadow-sm"
+          data-v0-t="card"
+        >
+          <div class="flex flex-col space-y-1.5 p-6">
+            <h3
+              class="whitespace-nowrap text-2xl font-semibold leading-none tracking-tight"
+            >
+              Total Theatres
+            </h3>
+          </div>
+          <div class="p-6">
+            <div class="text-4xl font-bold">75</div>
+          </div>
+        </div>
+        <div
+          class="rounded-lg border bg-card text-card-foreground shadow-sm"
+          data-v0-t="card"
+        >
+          <div class="flex flex-col space-y-1.5 p-6">
+            <h3
+              class="whitespace-nowrap text-2xl font-semibold leading-none tracking-tight"
+            >
+              Total Shows
+            </h3>
+          </div>
+          <div class="p-6">
+            <div class="text-4xl font-bold">1,500</div>
+          </div>
+        </div>
+      </div>
+      <div class="mt-8">
+        <div
+          class="rounded-lg border bg-card text-card-foreground shadow-sm"
+          data-v0-t="card"
+        >
+          <div class="flex flex-col space-y-1.5 p-6">
+            <h3
+              class="whitespace-nowrap text-2xl font-semibold leading-none tracking-tight"
+            >
+              Best Movies
+            </h3>
+            <div class="flex items-center gap-4">
+              <button
+                class="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground rounded-md px-3 h-8 gap-1"
+                type="button"
+                id="radix-:r7:"
+                aria-haspopup="menu"
+                aria-expanded="false"
+                data-state="closed"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="h-4 w-4"
+                >
+                  <path d="M8 2v4"></path>
+                  <path d="M16 2v4"></path>
+                  <rect width="18" height="18" x="3" y="4" rx="2"></rect>
+                  <path d="M3 10h18"></path>
+                </svg>
+                <span>Last 30 days</span>
+              </button>
+            </div>
+          </div>
+          <div class="p-6">
+            <div class="aspect-[16/9]">
+              <div
+                class="flex aspect-video justify-center text-xs [&amp;_.recharts-cartesian-axis-tick_text]:fill-muted-foreground [&amp;_.recharts-cartesian-grid_line[stroke='#ccc']]:stroke-border/50 [&amp;_.recharts-curve.recharts-tooltip-cursor]:stroke-border [&amp;_.recharts-dot[stroke='#fff']]:stroke-transparent [&amp;_.recharts-layer]:outline-none [&amp;_.recharts-polar-grid_[stroke='#ccc']]:stroke-border [&amp;_.recharts-radial-bar-background-sector]:fill-muted [&amp;_.recharts-rectangle.recharts-tooltip-cursor]:fill-muted [&amp;_.recharts-reference-line_[stroke='#ccc']]:stroke-border [&amp;_.recharts-sector[stroke='#fff']]:stroke-transparent [&amp;_.recharts-sector]:outline-none [&amp;_.recharts-surface]:outline-none min-h-[300px]"
+                data-chart="chart-r9"
+              >
+                <style>
+                  [data-chart="chart-r9"] {
+                    --color-desktop: hsl(var(--chart-1));
+                  }
+                  .dark [data-chart="chart-r9"] {
+                    --color-desktop: hsl(var(--chart-1));
+                  }
+                </style>
+                <div
+                  class="recharts-responsive-container"
+                  style="width: 100%; height: 100%; min-width: 0px"
+                >
+                  <div
+                    class="recharts-wrapper"
+                    style="
+                      position: relative;
+                      cursor: default;
+                      width: 100%;
+                      height: 100%;
+                      max-height: 431px;
+                      max-width: 766px;
+                    "
+                  >
+                    <svg
+                      tabindex="0"
+                      role="application"
+                      class="recharts-surface"
+                      width="766"
+                      height="431"
+                      viewBox="0 0 766 431"
+                      style="width: 100%; height: 100%"
+                    >
+                      <title></title>
+                      <desc></desc>
+                      <defs>
+                        <clipPath id="recharts1-clip">
+                          <rect x="5" y="5" height="391" width="756"></rect>
+                        </clipPath>
+                      </defs>
+                      <g class="recharts-cartesian-grid">
+                        <g class="recharts-cartesian-grid-horizontal">
+                          <line
+                            stroke="#ccc"
+                            fill="none"
+                            x="5"
+                            y="5"
+                            width="756"
+                            height="391"
+                            x1="5"
+                            y1="396"
+                            x2="761"
+                            y2="396"
+                          ></line>
+                          <line
+                            stroke="#ccc"
+                            fill="none"
+                            x="5"
+                            y="5"
+                            width="756"
+                            height="391"
+                            x1="5"
+                            y1="298.25"
+                            x2="761"
+                            y2="298.25"
+                          ></line>
+                          <line
+                            stroke="#ccc"
+                            fill="none"
+                            x="5"
+                            y="5"
+                            width="756"
+                            height="391"
+                            x1="5"
+                            y1="200.5"
+                            x2="761"
+                            y2="200.5"
+                          ></line>
+                          <line
+                            stroke="#ccc"
+                            fill="none"
+                            x="5"
+                            y="5"
+                            width="756"
+                            height="391"
+                            x1="5"
+                            y1="102.75"
+                            x2="761"
+                            y2="102.75"
+                          ></line>
+                          <line
+                            stroke="#ccc"
+                            fill="none"
+                            x="5"
+                            y="5"
+                            width="756"
+                            height="391"
+                            x1="5"
+                            y1="5"
+                            x2="761"
+                            y2="5"
+                          ></line>
+                        </g>
+                      </g>
+                      <g
+                        class="recharts-layer recharts-cartesian-axis recharts-xAxis xAxis"
+                      >
+                        <g class="recharts-cartesian-axis-ticks">
+                          <g
+                            class="recharts-layer recharts-cartesian-axis-tick"
+                          >
+                            <text
+                              orientation="bottom"
+                              width="756"
+                              height="30"
+                              stroke="none"
+                              x="68"
+                              y="412"
+                              class="recharts-text recharts-cartesian-axis-tick-value"
+                              text-anchor="middle"
+                              fill="#666"
+                            >
+                              <tspan x="68" dy="0.71em">Jan</tspan>
+                            </text>
+                          </g>
+                          <g
+                            class="recharts-layer recharts-cartesian-axis-tick"
+                          >
+                            <text
+                              orientation="bottom"
+                              width="756"
+                              height="30"
+                              stroke="none"
+                              x="194"
+                              y="412"
+                              class="recharts-text recharts-cartesian-axis-tick-value"
+                              text-anchor="middle"
+                              fill="#666"
+                            >
+                              <tspan x="194" dy="0.71em">Feb</tspan>
+                            </text>
+                          </g>
+                          <g
+                            class="recharts-layer recharts-cartesian-axis-tick"
+                          >
+                            <text
+                              orientation="bottom"
+                              width="756"
+                              height="30"
+                              stroke="none"
+                              x="320"
+                              y="412"
+                              class="recharts-text recharts-cartesian-axis-tick-value"
+                              text-anchor="middle"
+                              fill="#666"
+                            >
+                              <tspan x="320" dy="0.71em">Mar</tspan>
+                            </text>
+                          </g>
+                          <g
+                            class="recharts-layer recharts-cartesian-axis-tick"
+                          >
+                            <text
+                              orientation="bottom"
+                              width="756"
+                              height="30"
+                              stroke="none"
+                              x="446"
+                              y="412"
+                              class="recharts-text recharts-cartesian-axis-tick-value"
+                              text-anchor="middle"
+                              fill="#666"
+                            >
+                              <tspan x="446" dy="0.71em">Apr</tspan>
+                            </text>
+                          </g>
+                          <g
+                            class="recharts-layer recharts-cartesian-axis-tick"
+                          >
+                            <text
+                              orientation="bottom"
+                              width="756"
+                              height="30"
+                              stroke="none"
+                              x="572"
+                              y="412"
+                              class="recharts-text recharts-cartesian-axis-tick-value"
+                              text-anchor="middle"
+                              fill="#666"
+                            >
+                              <tspan x="572" dy="0.71em">May</tspan>
+                            </text>
+                          </g>
+                          <g
+                            class="recharts-layer recharts-cartesian-axis-tick"
+                          >
+                            <text
+                              orientation="bottom"
+                              width="756"
+                              height="30"
+                              stroke="none"
+                              x="698"
+                              y="412"
+                              class="recharts-text recharts-cartesian-axis-tick-value"
+                              text-anchor="middle"
+                              fill="#666"
+                            >
+                              <tspan x="698" dy="0.71em">Jun</tspan>
+                            </text>
+                          </g>
+                        </g>
+                      </g>
+                      <g class="recharts-layer recharts-bar">
+                        <g class="recharts-layer recharts-bar-rectangles">
+                          <g class="recharts-layer">
+                            <g class="recharts-layer recharts-bar-rectangle">
+                              <path
+                                x="17.6"
+                                y="168.73125"
+                                width="100"
+                                height="227.26875"
+                                radius="8"
+                                fill="var(--color-desktop)"
+                                class="recharts-rectangle"
+                                d="M 17.6,176.73125
+    A 8,8,0,0,1,25.6,168.73125
+    L 109.6,168.73125
+    A 8,8,0,0,1,117.6,176.73125
+    L 117.6,388
+    A 8,8,0,0,1,109.6,396
+    L 25.6,396
+    A 8,8,0,0,1,17.6,388 Z"
+                              ></path>
+                            </g>
+                            <g class="recharts-layer recharts-bar-rectangle">
+                              <path
+                                x="143.6"
+                                y="23.328125"
+                                width="100"
+                                height="372.671875"
+                                radius="8"
+                                fill="var(--color-desktop)"
+                                class="recharts-rectangle"
+                                d="M 143.6,31.328125
+    A 8,8,0,0,1,151.6,23.328125
+    L 235.6,23.328125
+    A 8,8,0,0,1,243.6,31.328125
+    L 243.6,388
+    A 8,8,0,0,1,235.6,396
+    L 151.6,396
+    A 8,8,0,0,1,143.6,388 Z"
+                              ></path>
+                            </g>
+                            <g class="recharts-layer recharts-bar-rectangle">
+                              <path
+                                x="269.6"
+                                y="106.415625"
+                                width="100"
+                                height="289.584375"
+                                radius="8"
+                                fill="var(--color-desktop)"
+                                class="recharts-rectangle"
+                                d="M 269.6,114.415625
+    A 8,8,0,0,1,277.6,106.415625
+    L 361.6,106.415625
+    A 8,8,0,0,1,369.6,114.415625
+    L 369.6,388
+    A 8,8,0,0,1,361.6,396
+    L 277.6,396
+    A 8,8,0,0,1,269.6,388 Z"
+                              ></path>
+                            </g>
+                            <g class="recharts-layer recharts-bar-rectangle">
+                              <path
+                                x="395.6"
+                                y="306.80312499999997"
+                                width="100"
+                                height="89.19687500000003"
+                                radius="8"
+                                fill="var(--color-desktop)"
+                                class="recharts-rectangle"
+                                d="M 395.6,314.80312499999997
+    A 8,8,0,0,1,403.6,306.80312499999997
+    L 487.6,306.80312499999997
+    A 8,8,0,0,1,495.6,314.80312499999997
+    L 495.6,388
+    A 8,8,0,0,1,487.6,396
+    L 403.6,396
+    A 8,8,0,0,1,395.6,388 Z"
+                              ></path>
+                            </g>
+                            <g class="recharts-layer recharts-bar-rectangle">
+                              <path
+                                x="521.6"
+                                y="140.628125"
+                                width="100"
+                                height="255.371875"
+                                radius="8"
+                                fill="var(--color-desktop)"
+                                class="recharts-rectangle"
+                                d="M 521.6,148.628125
+    A 8,8,0,0,1,529.6,140.628125
+    L 613.6,140.628125
+    A 8,8,0,0,1,621.6,148.628125
+    L 621.6,388
+    A 8,8,0,0,1,613.6,396
+    L 529.6,396
+    A 8,8,0,0,1,521.6,388 Z"
+                              ></path>
+                            </g>
+                            <g class="recharts-layer recharts-bar-rectangle">
+                              <path
+                                x="647.6"
+                                y="134.51875"
+                                width="100"
+                                height="261.48125"
+                                radius="8"
+                                fill="var(--color-desktop)"
+                                class="recharts-rectangle"
+                                d="M 647.6,142.51875
+    A 8,8,0,0,1,655.6,134.51875
+    L 739.6,134.51875
+    A 8,8,0,0,1,747.6,142.51875
+    L 747.6,388
+    A 8,8,0,0,1,739.6,396
+    L 655.6,396
+    A 8,8,0,0,1,647.6,388 Z"
+                              ></path>
+                            </g>
+                          </g>
+                        </g>
+                        <g class="recharts-layer"></g>
+                      </g>
+                    </svg>
+                    <div
+                      tabindex="-1"
+                      class="recharts-tooltip-wrapper recharts-tooltip-wrapper-left recharts-tooltip-wrapper-bottom"
+                      style="
+                        visibility: hidden;
+                        pointer-events: none;
+                        position: absolute;
+                        top: 0px;
+                        left: 0px;
+                        transform: translate(579.25px, 245px);
+                      "
+                    ></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>

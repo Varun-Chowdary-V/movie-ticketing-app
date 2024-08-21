@@ -1,9 +1,27 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { MovieServiceService } from '../../services/movie-service.service';
 import { Router } from '@angular/router';
 import { BookingServiceService } from '../../services/booking-service.service';
-import { Theatre } from '../../models';
+import { Booking, Show, Theatre } from '../../models';
 import { TheatreServiceService } from '../../services/theatre-service.service';
+import { ShowsService } from '../../services/shows.service';
+import { UserServiceService } from '../../services/user-service.service';
+
+interface MovieState {
+  id: number,
+  title:string,
+  description: string,
+  location: string,
+}
+
+interface BookingState {
+  theatreId: number,
+  showId: number,
+  bookingDate: string,
+  bookingTime: string,
+  seats: string,
+  price: number
+}
 
 @Component({
   selector: 'app-seat',
@@ -12,52 +30,64 @@ import { TheatreServiceService } from '../../services/theatre-service.service';
 })
 
 export class SeatComponent {
-
-  movieTitle:string='';
-  screen:string = "Harihara Cinemas";
-  time:string = '';
-  movieId!:number ;
-  theatreId!:number;
-  screenId!:number;
-  userId!:number;
-
-
+  bookingState : BookingState = {
+    theatreId: -1,
+    showId: -1,
+    bookingDate: '',
+    bookingTime: '',
+    seats: '',
+    price:0
+  };
+  @Input() movieState!: MovieState;
+  today: string = '';
+  defaultTimes: string[] = ['10:00 AM', '01:00 PM', '04:00 PM', '07:00 PM', '10:00 PM'];
+  theatres:Theatre[] =[];
+  shows:Show[] =[];
   rows: string[] = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
   cols: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
-  reserved: string[] = ['A2', 'A3', 'F5', 'F1', 'F2','F6', 'F7', 'F8', 'H1', 'H2', 'H3', 'H4'];
+  available: string[] = ['A2', 'A3', 'F5', 'F1', 'F2','F6', 'F7', 'F8', 'H1', 'H2', 'H3', 'H4'];
   selected: string[] = [];
 
   ticketPrice: number = 200;
-  convinienceFee: number = 30;
   totalPrice: number = 0;
   currency: string = "Rs";
-  booking : any;
 
-  constructor(private bookingService:BookingServiceService, private router:Router, private theatreService:TheatreServiceService) {}
+  constructor(private userService:UserServiceService,private bookingService:BookingServiceService, private showService: ShowsService, private router:Router, private theatreService:TheatreServiceService) {}
 
   ngOnInit () : void {
-    this.bookingService.booking$.subscribe(state => {
-      this.booking = state;
-    })
-    console.log(this.booking)
-    this.movieTitle=this.booking.movie.title;
-    this.time = this.booking.date + " " + this.booking.time;
-    this.getReservedSeats();
+    this.today=this.getTodayDate();
   }
 
-  getReservedSeats() {
-    this.theatreService.getTheatre(this.booking.theatreId).subscribe({
-      next: (result) =>{
-        console.log("Get reserved seatss",result);
-        this.reserved = result.bookedSeats.split(', ')
-      } 
+  handleTheatreSelect() : void {
+    this.showService.getAllShows().subscribe({
+      next: (shows:Show[]) => {
+        this.shows=shows.filter((show) => {
+          return (show.theatreId == this.bookingState.theatreId);
+        })
+      }
     })
   }
 
-  //Get status of each seat
+  getTodayDate(): string {
+    const today = new Date();
+    const yyyy = today.getFullYear();
+    const mm = String(today.getMonth() + 1).padStart(2, '0'); 
+    const dd = String(today.getDate()).padStart(2, '0');
+    return `${yyyy}-${mm}-${dd}`;
+  }
+
+  getAvailableSeats() {
+    this.showService.getShowById(this.bookingState.showId).subscribe({
+      next: (show:Show) => {
+        this.available=show.availableSeats.split(', ');
+        this.ticketPrice = show.ticketFare
+      }
+    })
+  }
+
   getStatus (seatPos: string) : string {
-    if(this.reserved.indexOf(seatPos) !== -1) {
+    if(this.available.indexOf(seatPos) == -1) {
       return 'reserved';
     } else if(this.selected.indexOf(seatPos) !== -1) {
       return 'selected';
@@ -65,32 +95,47 @@ export class SeatComponent {
     return '';
   }
 
-  //uncheck all seats 
   clearSelected () : void {
     this.selected = [];
   }
 
-  //Handle click
   seatClicked (seatPos:string) : void {
     let index = this.selected.indexOf(seatPos);
 
     if(index !== -1) {
-      // Seat is already selected
       this.selected.splice(index, 1)
     } else {
-      // Push to selected array only i it is not reserved
-      if(this.reserved.indexOf(seatPos) === -1)
+      if(this.available.indexOf(seatPos) !== -1)
         this.selected.push(seatPos);
     };
   }
 
-  //Checkout handler
-  showSelected() : void {
-    if(this.selected.length > 0) {
-      alert("For movie "+this.movieTitle+" at "+ this.screen + " on "+ this.time + "\nSelected seats: " + this.selected + "\nTotal: " + (this.ticketPrice * this.selected.length + this.convinienceFee));
-      this.router.navigate(['/'])
-    } else {
-      alert("No seats selected!");
+  getTheatresAtLocation() {
+    this.theatreService.getTheatresOfLocation(this.movieState.location).subscribe({
+      next: (theatres:Theatre[]) => {
+        this.theatres = theatres;
+      }
+    })
+  }
+
+  getShows () {
+    this.showService.getAllShows().subscribe({
+      next:(shows:Show[]) => {
+        shows.find((show:Show)=> show.movieId==this.movieState.id )
+      }
+    })
+  }
+
+  handleCheckout() : void {
+    let booking : Booking = {
+      id:Math.random()*653126453,
+    userId: this.userService.getLoginState(),
+    showId: this.bookingState.showId,
+    bookingDateTime:new Date(this.bookingState.bookingDate+this.bookingState.bookingTime),
+    seats:this.bookingState.seats,
+    price:this.bookingState.price,
+
     }
+    this.bookingService.createBooking(booking);
   }
 }

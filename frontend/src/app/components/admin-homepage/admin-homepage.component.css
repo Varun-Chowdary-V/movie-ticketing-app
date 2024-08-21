@@ -1,0 +1,56 @@
+/* src/app/components/admin-homepage/admin-homepage.component.css */
+.header {
+  @apply bg-gray-800 text-white p-4;
+}
+
+.header-content {
+  @apply flex justify-between items-center;
+}
+
+.menu-toggle {
+  @apply text-white;
+}
+
+.brand {
+  @apply flex items-center text-white;
+}
+
+.brand svg {
+  @apply w-6 h-6 mr-2;
+}
+
+.header-user {
+  @apply flex items-center;
+}
+
+.user-avatar {
+  @apply w-10 h-10 rounded-full border-2 border-white;
+}
+
+.sidebar {
+  @apply bg-gray-700 text-white w-64 h-full fixed left-0 top-16;
+}
+
+.sidebar-nav {
+  @apply flex flex-col p-4;
+}
+
+.nav-item {
+  @apply flex items-center text-gray-200 p-2 hover:bg-gray-600;
+}
+
+.dashboard {
+  @apply ml-64 p-4;
+}
+
+.card {
+  @apply bg-white shadow rounded-lg p-4;
+}
+
+.card-header {
+  @apply border-b mb-4;
+}
+
+.card-title {
+  @apply text-xl font-semibold;
+}

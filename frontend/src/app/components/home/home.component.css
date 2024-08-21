@@ -13,6 +13,82 @@
   color: white;
 }
 
+.main-movie {
+  display: flex;
+  justify-content: center;
+  margin: 20px;
+}
+
+.main-movie-content {
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  background-color: #f9f9f9;
+  width: 100%;
+  max-width: 600px;
+}
+
+.rating {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.star {
+  font-size: 18px;
+  margin-right: 5px;
+}
+
+.star.full {
+  color: #ffd700; /* Gold color for full stars */
+}
+
+.star.half {
+  color: #ffd700; /* Gold color for half stars */
+  position: relative;
+}
+
+.star.half::before {
+  content: "\2605"; /* Full star character */
+  color: #ccc; /* Grey color for the half */
+  position: absolute;
+  width: 50%;
+  overflow: hidden;
+}
+
+.star.empty {
+  color: #ccc; /* Grey color for empty stars */
+}
+
+.rating-value {
+  font-size: 16px;
+  color: #555;
+}
+
+.genres,
+.languages {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.genre-item,
+.language-item {
+  padding: 2px 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #e0e0e0;
+}
+
+.bordered {
+  padding: 5px 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  display: inline-block;
+  margin-top: 10px;
+}
+
 .search-bar input {
   padding: 5px;
   font-size: 16px;
@@ -208,4 +284,80 @@ select {
 .btn {
   display: flex;
   justify-content: space-evenly;
+}
+
+.main-movie {
+  display: flex;
+  justify-content: center;
+  margin: 20px;
+}
+
+.main-movie-content {
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  background-color: #f9f9f9;
+  width: 100%;
+  max-width: 600px;
+}
+
+.rating {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.star {
+  font-size: 18px;
+  margin-right: 5px;
+}
+
+.star.full {
+  color: #ffd700; /* Gold color for full stars */
+}
+
+.star.half {
+  color: #ffd700; /* Gold color for half stars */
+  position: relative;
+}
+
+.star.half::before {
+  content: "\2605"; /* Full star character */
+  color: #ccc; /* Grey color for the half */
+  position: absolute;
+  width: 50%;
+  overflow: hidden;
+}
+
+.star.empty {
+  color: #ccc; /* Grey color for empty stars */
+}
+
+.rating-value {
+  font-size: 16px;
+  color: #555;
+}
+
+.genres,
+.languages {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.genre-item,
+.language-item {
+  padding: 2px 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #e0e0e0;
+}
+
+.bordered {
+  padding: 5px 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  display: inline-block;
+  margin-top: 10px;
 }

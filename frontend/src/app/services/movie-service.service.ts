@@ -13,6 +13,14 @@ export class MovieServiceService {
   constructor(private http: HttpClient) {
   }
 
+  getMoviesCount():number{
+    let count:number=0;
+    this.http.get<Movie[]>(this.baseUrl).forEach((Movie)=>{
+      count+=1;
+    })
+    return count;
+  }
+
   getMovies() :Observable<Movie[]> {
     return this.http.get<Movie[]>(this.baseUrl);
   }

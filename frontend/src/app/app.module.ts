@@ -14,10 +14,12 @@ import { HomeComponent } from './components/home/home.component';
 
 import { provideHttpClient,withInterceptorsFromDi} from '@angular/common/http';
 import { AuthGuard } from './auth.guard';
-import { ProfileComponent } from './components/profile/profile.component';
+import { HeaderComponent } from './components/header/header.component';
+import { AdminHomepageComponent } from './components/admin-homepage/admin-homepage.component';
+import { AdminHeaderComponent } from './components/admin-header/admin-header.component';
 
 const appRoutes: Routes = [
-  {path: '', component: HomeComponent },
+  {path: '', component: AdminHomepageComponent },
   {path:'login', component:LoginComponent},
   {path:'register', component:RegisterComponent},
   {path:'seat', component:SeatComponent, canActivate:[AuthGuard]}
@@ -30,7 +32,9 @@ const appRoutes: Routes = [
     LoginComponent,
     RegisterComponent,
     HomeComponent,
-    ProfileComponent
+    HeaderComponent,
+    AdminHomepageComponent,
+    AdminHeaderComponent
   ],
   imports: [
     BrowserModule,

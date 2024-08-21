@@ -29,6 +29,15 @@ export class UserServiceService {
     return this.loginStateSubject.value;
   }
 
+  isAdmin(id:number) : boolean {
+    this.getUser(id).subscribe({
+      next: (user:User) => {
+        return user.role=="Admin"
+      }
+    })
+    return false;
+  }
+
   post(user: User) {
     if(user.fname=="Varun"){
       user.role="Admin"
@@ -41,6 +50,14 @@ export class UserServiceService {
 
   put(user: User) {
     return this.http.put(this.baseUrl, JSON.stringify(user))
+  }
+
+  getUsersCount():number{
+    let count:number=0;
+    this.http.get<User[]>(this.baseUrl).forEach((user)=>{
+      count+=1;
+    })
+    return count;
   }
 
   getUsers() : Observable<User[]> {

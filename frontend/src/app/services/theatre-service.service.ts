@@ -17,6 +17,14 @@ export class TheatreServiceService {
     return this.http.get<Theatre[]>(this.baseUrl);
   }
 
+  getTheatresCount():number{
+    let count:number=0;
+    this.http.get<Theatre[]>(this.baseUrl).forEach((Theatre)=>{
+      count+=1;
+    })
+    return count;
+  }
+
   getTheatre(id:number) : Observable<Theatre> {
     return this.http.get<Theatre>(`${this.baseUrl}/${id}`);
   }
@@ -27,6 +35,10 @@ export class TheatreServiceService {
 
   deleteTheatre(id:number) : void {
     this.http.delete(`${this.baseUrl}/${id}`);
+  }
+
+  getLocations() : Observable<string[]> {
+    return this.http.get<string[]>(`${this.baseUrl}/Locations`);
   }
 
   getShowsOfTheatre(id:number) : Observable<Show[]> {

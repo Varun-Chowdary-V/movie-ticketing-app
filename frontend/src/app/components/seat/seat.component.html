@@ -1,49 +1,100 @@
 <div class="container">
-    <main class="innerContainer">
-        <div class="movie">
-            <h3 class="movieTitle">{{movieTitle}}</h3>
-            <div class="movieDetails">{{screen}} - {{time}}</div>
-            <hr/>
+  <main class="innerContainer">
+    <div class="modal" *ngIf="movieState?.id != -1">
+      <div class="modal-content">
+        <h2>{{ movieState.title }}</h2>
+        <p>{{ movieState.description }}</p>
+
+        <label for="date">Select Date:</label>
+        <input
+          type="date"
+          id="date"
+          [(ngModel)]="bookingState.bookingDate"
+          [min]="today"
+        />
+
+        <label for="theatre">Select theatre:</label>
+        <select
+          id="theatre"
+          [(ngModel)]="bookingState.theatreId"
+          (change)="handleTheatreSelect()"
+        >
+          <option *ngFor="let theatre of theatres" [value]="theatre.id">
+            {{ theatre.name }}
+          </option>
+        </select>
+
+        <label for="time">Select Time:</label>
+        <select id="time" [(ngModel)]="bookingState.bookingTime">
+          <option *ngFor="let show of shows" [value]="show.showTime">
+            {{ show.showTime }}
+          </option>
+        </select>
+      </div>
+    </div>
+    <div class="legend">
+      <div class="seat freeSeat"></div>
+      &nbsp;Free&nbsp;&nbsp;
+      <div class="seat reservedSeat"></div>
+      &nbsp;Taken&nbsp;&nbsp;
+      <div class="seat selectedSeat"></div>
+      &nbsp; Selected&nbsp;&nbsp;
+    </div>
+
+    <div *ngFor="let row of rows" class="seatsRow">
+      <div class="seatLabel">{{ row }}</div>
+      <div
+        class="seats"
+        *ngFor="let col of cols"
+        (click)="seatClicked(row + col)"
+        [ngSwitch]="getStatus(row + col)"
+      >
+        <div *ngSwitchCase="'selected'" class="seat selectedSeat">
+          {{ col }}
         </div>
-        
-
-        <!-- Static info bar for Free, Taken and Selected -->
-        <div class="legend">
-            <div class="seat freeSeat"></div>&nbsp;Free&nbsp;&nbsp;
-            <div class="seat reservedSeat"></div> &nbsp;Taken&nbsp;&nbsp;
-            <div class="seat selectedSeat"></div>&nbsp; Selected&nbsp;&nbsp;
+        <div *ngSwitchCase="'reserved'" class="seat reservedSeat">
+          {{ col }}
         </div>
+        <div *ngSwitchDefault class="seat freeSeat">{{ col }}</div>
+      </div>
+    </div>
 
-        <!-- Generate the seating grid -->
-        <div *ngFor="let row of rows" class="seatsRow">
-            <div class="seatLabel">{{row}}</div>
-            <div class="seats" *ngFor="let col of cols" (click)="seatClicked(row + col)" [ngSwitch]="getStatus(row + col)">
-                <div *ngSwitchCase="'selected'" class="seat selectedSeat">{{col}}</div>
-                <div *ngSwitchCase="'reserved'" class="seat reservedSeat">{{col}}</div>
-                <div *ngSwitchDefault class="seat freeSeat">{{col}}</div>
-            </div>
-        </div>
+    <div class="screen"></div>
 
-        
-        <div class="screen"></div>
-       
+    <p class="font14 marginTop5">All eyes this way please!</p>
 
-        <p class="font14 marginTop5">All eyes this way please!</p>
+    <div *ngIf="selected.length > 0" class="font14 marginTB10">
+      <div class="wordWrap">
+        Seats Reserved : {{ selected.length }}
+        <span class="count">({{ selected }})</span>
+      </div>
+      <div class="">
+        Price : {{ ticketPrice }}*{{ selected.length }} = {{ currency }}.{{
+          ticketPrice * selected.length
+        }}
+      </div>
+      <div class="">
+        Total : {{ currency }}.{{
+          ticketPrice * selected.length 
+        }}
+      </div>
+    </div>
 
-        
-
-        <!-- Structural directive - only visible on selection -->
-        <div *ngIf="selected.length > 0" class="font14 marginTB10">
-            <div class="wordWrap">Seats Reserved : {{selected.length}} <span class="count">({{selected}})</span></div>
-            <div class="">Price : {{ticketPrice}}*{{selected.length}} = {{currency}}.{{ticketPrice*selected.length}} </div>
-            <div class="">Convinience Fee : {{currency}}.{{convinienceFee}}</div>
-            <div class="">Total : {{currency}}.{{ticketPrice * selected.length + convinienceFee}}</div>
-        </div>
-
-        <!-- Action buttons -->
-        <div class="buttonBar marginTop5">
-            <button (click)="clearSelected()" [disabled]="selected.length === 0" class="btn btn-default btn-sm">Clear</button>
-            <button (click)="showSelected()" [disabled]="selected.length === 0" class="btn btn-success btn-sm">Checkout</button>
-        </div>
-    </main>
+    <div class="buttonBar marginTop5">
+      <button
+        (click)="clearSelected()"
+        [disabled]="selected.length === 0"
+        class="btn btn-default btn-sm"
+      >
+        Clear
+      </button>
+      <button
+        (click)="handleCheckout()"
+        [disabled]="selected.length === 0"
+        class="btn btn-success btn-sm"
+      >
+        Checkout
+      </button>
+    </div>
+  </main>
 </div>
